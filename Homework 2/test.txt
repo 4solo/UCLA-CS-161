@@ -1,0 +1,86 @@
+;Problem 1 Tests:
+
+(dfs '((A (B)) C (D)))
+	(A B C D)
+(dfs '((W X) (Y Z)))
+	(W X Y Z)
+(dfs NIL)
+	NIL
+(dfs '((((A)))))
+	(A)
+(dfs '((A) (((B))) (C (D (E F (G))))))
+	(A B C D E F G)
+
+;Problem 2 Tests:
+
+(ldfs '((A (B)) C (D)) 0)
+	NIL
+(ldfs '((A (B)) C (D)) 1)
+	(C)
+(ldfs '((A (B)) C (D)) 2)
+	(A C D)
+(ldfs '((A (B)) C (D)) 3)
+	(A B C D)
+
+(dfid '((A (B)) C (D)) 0)
+	NIL
+(dfid '((A (B)) C (D)) 1)
+	(C)
+(dfid '((A (B)) C (D)) 2)
+	(C A C D)
+(dfid '((A (B)) C (D)) 3)
+	(C A C D A B C D)
+(dfid '((W X) (Y Z)) 1)
+	NIL
+(dfid '((W X) (Y Z)) 2)
+	(W X Y Z)
+(dfid '((W X) (Y Z)) 3)
+	(W X Y Z W X Y Z)
+
+;Problem 3 (Missionary-Cannibal) Tests:
+
+(final-state '(a))
+	NIL
+(final-state '(3 3 T))
+	NIL
+(final-state '(3 2 NIL))
+	NIL
+(final-state '(3 3 NIL))
+	T
+
+(next-state '(3 3 t) 1 0)
+	NIL
+(next-state '(3 3 t) 0 1)
+	((0 1 NIL))
+(next-state '(2 2 t) 0 2)
+	NIL
+(next-state '(3 3 NIL) 1 1)
+	((1 1 t))
+(next-state '(1 1 NIL) 1 0)
+	((3 2 t))
+
+(succ-fn '(3 3 t))
+	((0 1 NIL) (1 1 NIL) (0 2 NIL))
+(succ-fn '(3 3 NIL))
+	((0 1 T) (1 1 T) (0 2 T))
+(succ-fn '(1 1 t))
+	((3 2 NIL) (3 3 NIL))
+(succ-fn '(2 2 NIL))
+	((2 2 T) (3 1 T))
+	
+(on-path '(1 1 t) '((1 1 t)))
+	T
+(on-path '(1 1 t) '((1 1 NIL)))
+	NIL
+(on-path '(3 3 t) '((1 1 NIL) (0 0 t) (3 3 t) (2 2 NIL)))
+	T
+
+(mult-dfs (succ-fn '(0 2 t)) NIL)
+	((3 2 NIL) (1 1 T) (3 3 NIL))
+	
+(mc-dfs '(0 2 t) NIL)
+	((0 2 T) (3 2 NIL) (1 1 T) (3 3 NIL))
+(mc-dfs '(3 3 t) NIL)
+	((3 3 T) (1 1 NIL) (3 2 T) (0 3 NIL) (3 1 T) (2 2 NIL) (2 2 T) (3 1 NIL) (0 3 T) (3 2 NIL) (1 1 T) (3 3 NIL))
+	
+;Test cases (those not given from homework) written by Nathan Tung (004-059-195)

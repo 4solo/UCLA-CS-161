@@ -1,0 +1,82 @@
+CS161 Homework 7 (Nathan Tung, 004059195)
+
+1. Give the most general unifier if it exists.
+	a. Theta = {x/A, y/B, z/B}
+	b. Unifier does not exist, since x cannot be both A and B
+	c. Theta = {x/B, y/A}
+	d. Theta = {x/John, y/John}
+	e. Unifier does not exist, since y cannot be Father(y)
+
+
+2. Consider the sentences and answer the questions.
+
+a. Translate these sentences into formulas in first-order logic.
+	1. (A x) (Food(x) => Likes(John,x))
+	2. Food(Apples)
+	3. Food(Chicken)
+	4. (E x A y) (Eats(x,y) & ~Kills(y,x) => Food (y))
+	5. (A x E y) (Kills(y,x) => ~Alive(x))
+	6. Eats(Bill,Peanuts) & Alive(Bill)
+	8. (A x) (Eats(Bill,x) => Eats(Sue,x))
+
+b. Convert the formulas of part (a) into CNF or clausal form.
+	1. ~Food(x) | Likes(John,x)
+	2. Food(Apple)
+	3. Food(Chicken)
+	4. ~Eats(F(y),y) | Kills(y,F(y)) | Food(y)
+	5. ~Kills(F(x),x) | ~Alive(x)
+	6. Eats(Bill,Peanuts)
+	7. Alive(Bill)
+	8. ~Eats(Bill,x) | Eats(Sue,x)
+
+*Notice that we split sentence 6 into 6 and 7.
+
+c. Prove that John likes peanuts using resolution.
+	9. ~Eats(F(y),y) | Food(y) | ~Alive(F(y))
+		[4,5]
+	10. Food(Peanuts) | ~Alive(Bill)
+		[9,6]	Theta = {y/Peanuts, F(y)/Bill}
+	11. Food(Peanuts)
+		[7,11]
+	12. Likes(John,Peanuts)
+		[11,1]	Theta = {x/Peanuts}
+
+	Therefore, John likes peanuts.
+
+d. Use resolution to answer the question, "What food does Sue eat?"
+	13. Eats(Sue, Peanuts)
+		[6,8]	Theta = {x/Peanuts}
+
+	Therefore, Sue eats peanuts.
+
+e. Use resolution to answer (d) if instead of axiom #6 in (2a) we had new sentences.
+
+	9. (A x E y) (~Eats(x,y) => Die(x))
+		CNF: Eats(x,F(x)) | Die(x)
+	10. (A x) (Die(x) => ~Alive(x))
+		CNF: ~Die(x) | ~Alive(x)
+	11. Alive(Bill)
+		CNF: Alive(Bill)
+
+So now we have:
+	1. ~Food(x) | Likes(John,x)
+	2. Food(Apple)
+	3. Food(Chicken)
+	4. ~Eats(F(y),y) | Kills(y,F(y)) | Food(y)
+	5. ~Kills(F(x),x) | ~Alive(x)
+	8. ~Eats(Bill,x) | Eats(Sue,x)
+	9. Eats(x,F(x)) | Die(x)
+	10. ~Die(x) | ~Alive(x)
+	11. Alive(Bill)
+
+*Notice that sentences 6 and 7 have been removed according to the instructions.
+
+	12. ~Die(Bill)
+		[10,11]	Theta = {x/Bill}
+	13. Eats(Bill,F(Bill))
+		[12,9]	Theta = {x/Bill}
+	14. Eats(Sue,F(Bill))
+		[13,8]	Theta = {x/F(Bill)}
+
+	Therefore, sue eats at least whatever Bill eats.
+	However, we already knew this, and since we don't know what Bill eats, we cannot come to a specific conclusion.

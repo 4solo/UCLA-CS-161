@@ -1,0 +1,79 @@
+>(time (queens 1))
+
+real time       :      0.000 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+(1)
+
+>(time (queens 2))
+
+real time       :      0.000 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+NIL
+
+>(time (queens 3))
+
+real time       :      0.000 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+NIL
+
+>(time (queens 4))
+
+real time       :      0.000 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+(2 4 1 3)
+
+>(time (queens 5))
+
+real time       :      0.000 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+(1 3 5 2 4)
+
+>(time (queens 6))
+
+real time       :      0.000 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+(2 4 6 1 3 5)
+
+>(time (queens 7))
+
+real time       :      0.000 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+(1 3 5 7 2 4 6)
+
+>(time (queens 8))
+
+real time       :      0.019 secs
+run-gbc time    :      0.009 secs
+child run time  :      0.000 secs
+gbc time        :      0.009 secs
+(1 5 8 6 3 7 2 4)
+
+>(time (queens 9))
+
+real time       :      0.009 secs
+run-gbc time    :      0.000 secs
+child run time  :      0.000 secs
+gbc time        :      0.009 secs
+(1 3 6 8 2 4 9 7 5)
+
+>(time (queens 10))
+
+real time       :      0.019 secs
+run-gbc time    :      0.019 secs
+child run time  :      0.000 secs
+gbc time        :      0.000 secs
+(1 3 6 8 10 5 9 2 4 7)

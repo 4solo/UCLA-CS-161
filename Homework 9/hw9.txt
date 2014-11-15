@@ -1,0 +1,88 @@
+Nathan Tung
+004-059-195
+CS161 Homework 9
+
+1.	a.) See complete Bayesian network in test.net
+
+	b.) To achieve P(D|T) >= 0.3, we can constrain the following:
+		P(D=yes) >= 0.008942
+		P(T=positive|D=no) <= 0.002219
+
+		This is all according to SamIAm's sensitivity analysis. In other words,
+		probability of disease must be at least 0.008942,
+		probability of a false positive must be at most 0.002219,
+		probability of a false negative cannot be constrained to achieve P(D|T) >= 0.3
+
+2.	The set of variables and their values are shown below.
+	*Notice OtherDogBarking is not used for EM, MAP, or MPE.
+	It is there for structure, as it is a necessary variable according to the story.
+
+		FamilyHome: Yes, No
+		ExpectingGuests: Yes, No
+		DogBowelTrouble: Yes, No
+		DogOutside: Yes, No
+		DogBarking: Yes, No
+		*(OtherDogBarking: Yes, No)
+		HearableBarking: Yes, No
+		SoundSensor: On, Off
+		SoundSensorHealth: OK, Broken
+		OutdoorLight: On, Off
+		LightSensor: On, Off
+		LightSensorHealth: OK, Broken
+		Battery: OK, Dead
+
+	The causal structure seen in the sambot.net file is copied below:
+		FamilyHome -> DogOutside
+		DogBowelTrouble -> DogOutside
+		DogOutside -> DogBarking
+		DogBarking -> HearableBarking
+		OtherDogBarking ->HearableBarking
+		HearableBarking -> SoundSensor
+		SoundSensorHealth -> SoundSensor
+		Battery -> SoundSensor
+		
+		FamilyHome -> OutdoorLight
+		ExpectingGuests -> OutdoorLight
+		OutdoorLight -> LightSensorwa
+		LightSensorHealth -> LightSensor
+		Battery -> LightSensor
+
+	We run the EM algorithm (ignoring OtherDogBarking) in order to find CPTs. 
+
+	a.) If we open the monitors and set OutdoorLight=On, HearabeBarking=No,
+		then run MPE after EM, we obtain the following variables.
+
+		Battery: OK
+		DogBarking: No
+		DogBowelTrouble: Yes
+		DogOutside: Yes
+		ExpectingGuests: No
+		FamilyHome: No
+		LightSensor: On
+		LightSensorHealth: OK
+		SoundSensor: Off
+		SoundSensorHealth: OK
+
+		P(mpe,e)=0.1526
+		P(mpe|e)=0.3705
+
+	b.) Similarly, we set FamilyHome=Yes, ExpectingGuests=No,
+		then run MAP on the EM file to obtain these sensor variables.
+
+		Battery: OK
+		LightSensorHealth: OK
+		SoundSensorHealth: OK
+
+		LightSensor: Off
+		SoundSensor: Off
+
+		P(mpe,e)=0.0301
+		P(mpe|e)=0.1567
+
+
+	c.) Given Z={Battery, FamilyHome}, we know that the two sensors are independent.
+		Battery diverges into the sensors.
+		Likewise, FamilyHome diverges into the sensors (though indirectly).
+		So, given values of Z, the sensors are d-separated and conditionally independent.
+
+	d.) We have constructed a multiply-connected network here.
